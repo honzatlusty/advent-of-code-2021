@@ -1,7 +1,6 @@
 #!/bin/bash
 
 input=$1
-j=1
 min_cost=9999999
 
 positions=$(tr ',' ' ' < $input)
