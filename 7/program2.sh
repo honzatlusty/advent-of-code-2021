@@ -8,8 +8,7 @@ max_position=$(echo $positions | tr ' ' '\n' | sort -n | tail -n1)
 for i in $(seq 0 $max_position); do
   cost=0
   for p in $positions; do
-    _delta=$(($i-$p))
-    delta=$(echo $_delta | tr -d '-')
+    delta=$(echo $(($i-$p)) | tr -d '-')
     if [[ $delta -eq 0 ]]; then
       cost="$cost+0"
     else
