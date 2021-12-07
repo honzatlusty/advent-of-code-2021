@@ -9,9 +9,7 @@ for i in $(seq 0 $max_position); do
   cost=0
   for p in $positions; do
     delta=$(echo $(($i-$p)) | tr -d '-')
-    if [[ $delta -eq 0 ]]; then
-      cost="$cost+0"
-    else
+    if [[ $delta -ne 0 ]]; then
       cost="$cost+$(echo $(seq -s '+' 1 $delta) | bc)"
     fi
   done
