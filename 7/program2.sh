@@ -9,10 +9,9 @@ for i in $(seq 0 $max_position); do
   cost=0
   for p in $positions; do
     delta=$(echo $(($i-$p)) | tr -d '-')
-      [[ $delta -ne 0 ]] && cost="$cost+$(echo $(seq -s '+' 1 $delta) | bc)"
+    [[ $delta -ne 0 ]] && cost="$(($cost + $(seq -s '+' 1 $delta)))"
   done
-  _cost=$(echo "$cost" | bc)
-  [[ $_cost -lt $min_cost ]] && min_cost=$_cost
+  [[ $cost -lt $min_cost ]] && min_cost=$cost
 done
 
 echo $min_cost
