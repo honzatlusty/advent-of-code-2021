@@ -28,8 +28,8 @@ function decode_number () {
   sixes=$( echo "$input" | tr ' ' '\n' | egrep "^[a-z]{6}$" | tr '\n' ' ')
 
   for five in $fives; do
-    x==$(echo $fives | sed "s?${five}??" | awk '{print $1}')
-    y==$(echo $fives | sed "s?${five}??" | awk '{print $2}')
+    x=$(echo $fives | sed "s?${five}??" | awk '{print $1}')
+    y=$(echo $fives | sed "s?${five}??" | awk '{print $2}')
     [[ $(dif $x $five | wc -c) -eq $(dif $y $five | wc -c) ]] && numbers[3]=$five && break
   done
 
