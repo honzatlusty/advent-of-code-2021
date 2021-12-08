@@ -27,13 +27,19 @@ function decode_number () {
   fives=$( echo "$input" | tr ' ' '\n' | egrep "^[a-z]{5}$" | tr '\n' ' ')
   sixes=$( echo "$input" | tr ' ' '\n' | egrep "^[a-z]{6}$" | tr '\n' ' ')
 
-  a=$(echo "$fives" | awk '{print $1}')
-  b=$(echo "$fives" | awk '{print $2}')
-  c=$(echo "$fives" | awk '{print $3}')
+  #a=$(echo "$fives" | awk '{print $1}')
+  #b=$(echo "$fives" | awk '{print $2}')
+  #c=$(echo "$fives" | awk '{print $3}')
 
-  [[ $(dif $a $b | wc -c) -eq $(dif $a $c | wc -c) ]] && numbers[3]=$a
-  [[ $(dif $b $a | wc -c) -eq $(dif $b $c | wc -c) ]] && numbers[3]=$b
-  [[ $(dif $c $a | wc -c) -eq $(dif $c $b | wc -c) ]] && numbers[3]=$c
+  #[[ $(dif $a $b | wc -c) -eq $(dif $a $c | wc -c) ]] && numbers[3]=$a
+  #[[ $(dif $b $a | wc -c) -eq $(dif $b $c | wc -c) ]] && numbers[3]=$b
+  #[[ $(dif $c $a | wc -c) -eq $(dif $c $b | wc -c) ]] && numbers[3]=$c
+
+  for five in $fives; do
+    x==$(echo $fives | sed "s?${five}??" | awk '{print $1}')
+    y==$(echo $fives | sed "s?${five}??" | awk '{print $2}')
+    [[ $(dif $x $five | wc -c) -eq $(dif $y $five | wc -c) ]] && numbers[3]=$five && break
+  done
 
   for six in $sixes; do 
     dif $six ${numbers[4]} | wc -c | grep -q 3 && numbers[9]=$six
