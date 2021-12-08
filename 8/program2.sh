@@ -35,12 +35,8 @@ function decode_number () {
   [[ $(dif $b $a | wc -c) -eq $(dif $b $c | wc -c) ]] && numbers[3]=$b
   [[ $(dif $c $a | wc -c) -eq $(dif $c $b | wc -c) ]] && numbers[3]=$c
 
- for six in $sixes; do 
+  for six in $sixes; do 
     dif $six ${numbers[4]} | wc -c | grep -q 3 && numbers[9]=$six
-  done
-
-  for six in $(echo $sixes | tr ' ' '\n' | grep -v ${numbers[9]}) ; do
-    dif  ${numbers[8]} $six
   done
 
   for five in $(echo $fives | tr ' ' '\n' | grep -v ${numbers[3]} | tr '\n' ' '); do
@@ -70,7 +66,7 @@ sum=0
 while read line; do
  f=$(echo $line | sed 's? |.*??')
  g=$(echo $line | sed 's?.*| ??')
- l=$(decode_number "$f" "$g"  | tail -n1)
+ l=$(decode_number "$f" "$g")
  sum="$sum+$l"
 done < $input
 
